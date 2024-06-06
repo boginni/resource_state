@@ -1,5 +1,5 @@
 name: resource_state
-description: A starting point for Dart libraries or applications.
+description: A expansion to value notifier to handle async operations
 version: 1.0.0
 repository: https://github.com/boginni/resource_state
 
