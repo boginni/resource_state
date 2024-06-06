@@ -1,6 +1,6 @@
 name: resource_state
 description: A expansion to value notifier to handle async operations
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/boginni/resource_state
 
 environment:

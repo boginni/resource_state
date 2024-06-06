@@ -3,25 +3,33 @@ import 'package:flutter/material.dart';
 import '../../resource/resource_state.dart';
 import '../../resource/resource_state_enum.dart';
 
-/// A StatelessWidget that helps in building UI based on different states of a resource.
-/// This can be particularly useful in scenarios where the UI changes based on loading, error, success, or other states of a data fetch or operation.
+/// A StatelessWidget that helps in building UI based on different states of a
+/// resource.
+/// This can be particularly useful in scenarios where the UI changes based on
+/// loading, error, success, or other states of a data fetch or operation.
 class ResourceStateBuilder<T> extends StatelessWidget {
   /// Represents the current state of the resource.
   final ResourceState<T> resource;
 
   /// Customizable child widgets to display based on the different states.
-  final Widget? child, childErro, childLoading, childEmpty, childWaiting;
+  final Widget? child;
+  final Widget? childErro;
+  final Widget? childLoading;
+  final Widget? childEmpty;
+  final Widget? childWaiting;
 
   /// Default widget to show when none of the states match.
   final Widget childDefault;
 
-  /// Function to build the UI for the 'SUCCESS' state. It provides the value of the resource.
+  /// Function to build the UI for the 'SUCCESS' state. It provides the value of
+  /// the resource.
   final Widget Function(BuildContext context, T value, Widget? child) builder;
 
   /// If the widget should remain in memory when off-screen.
   final bool keepAlive;
 
-  /// If the widget should ignore the 'EMPTY_SUCCESS' state and use the provided builder function.
+  /// If the widget should ignore the 'EMPTY_SUCCESS' state and use the provided
+  /// builder function.
   final bool ignoreEmpty;
 
   const ResourceStateBuilder({
@@ -42,22 +50,22 @@ class ResourceStateBuilder<T> extends StatelessWidget {
       listenable: resource,
       builder: (context, child) {
         switch (resource.state) {
-          case ResourceStateEnum.WAITING:
+          case ResourceStateEnum.waiting:
             return childWaiting ?? childDefault;
-          case ResourceStateEnum.LOADING:
+          case ResourceStateEnum.loading:
             return childLoading ??
                 const Center(
                   child: CircularProgressIndicator.adaptive(),
                 );
-          case ResourceStateEnum.SUCCESS:
+          case ResourceStateEnum.success:
             return builder(context, resource.getData, child);
-          case ResourceStateEnum.EMPTY_SUCCESS:
+          case ResourceStateEnum.emptySuccess:
             if (ignoreEmpty && childEmpty == null) {
               return builder(context, resource.getData, child);
             }
 
             return childEmpty ?? childDefault;
-          case ResourceStateEnum.ERROR:
+          case ResourceStateEnum.error:
             return childErro ??
                 Center(
                   child: Text('${resource.error}'),

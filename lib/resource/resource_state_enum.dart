@@ -1,7 +1,7 @@
 enum ResourceStateEnum {
-  LOADING,
-  SUCCESS,
-  EMPTY_SUCCESS,
-  WAITING,
-  ERROR;
+  loading,
+  success,
+  emptySuccess,
+  waiting,
+  error;
 }

@@ -19,28 +19,28 @@ class ResourceState<S> extends ChangeNotifier {
 
   factory ResourceState.loading() {
     return ResourceState(
-      state: ResourceStateEnum.LOADING,
+      state: ResourceStateEnum.loading,
       data: null,
     );
   }
 
   factory ResourceState.success(S data) {
     return ResourceState(
-      state: ResourceStateEnum.SUCCESS,
+      state: ResourceStateEnum.success,
       data: data,
     );
   }
 
   factory ResourceState.emptySuccess() {
     return ResourceState(
-      state: ResourceStateEnum.EMPTY_SUCCESS,
+      state: ResourceStateEnum.emptySuccess,
       data: null,
     );
   }
 
   factory ResourceState.error(Exception error) {
     return ResourceState(
-      state: ResourceStateEnum.ERROR,
+      state: ResourceStateEnum.error,
       error: error,
       data: null,
     );
@@ -48,24 +48,24 @@ class ResourceState<S> extends ChangeNotifier {
 
   factory ResourceState.waiting() {
     return ResourceState(
-      state: ResourceStateEnum.WAITING,
+      state: ResourceStateEnum.waiting,
       data: null,
     );
   }
 
-  bool get isWaiting => _state == ResourceStateEnum.WAITING;
+  bool get isWaiting => _state == ResourceStateEnum.waiting;
 
-  bool get isLoading => _state == ResourceStateEnum.LOADING;
+  bool get isLoading => _state == ResourceStateEnum.loading;
 
-  bool get isSuccess => _state == ResourceStateEnum.SUCCESS;
+  bool get isSuccess => _state == ResourceStateEnum.success;
 
-  bool get isEmptySuccess => _state == ResourceStateEnum.EMPTY_SUCCESS;
+  bool get isEmptySuccess => _state == ResourceStateEnum.emptySuccess;
 
-  bool get isError => _state == ResourceStateEnum.ERROR;
+  bool get isError => _state == ResourceStateEnum.error;
 
   void setState(
       {S? data,
-      ResourceStateEnum state = ResourceStateEnum.SUCCESS,
+      ResourceStateEnum state = ResourceStateEnum.success,
       Exception? error,
       bool notify = true,}) {
     _state = state;
@@ -90,15 +90,15 @@ class ResourceState<S> extends ChangeNotifier {
 
   void add(S data, {bool notify = true}) {
     final newState = (data is List && data.isEmpty) || data == null
-        ? ResourceStateEnum.EMPTY_SUCCESS
-        : ResourceStateEnum.SUCCESS;
+        ? ResourceStateEnum.emptySuccess
+        : ResourceStateEnum.success;
 
     _updateState(data: data, state: newState, notify: notify);
   }
 
   void setError({
     Exception? error,
-    ResourceStateEnum state = ResourceStateEnum.ERROR,
+    ResourceStateEnum state = ResourceStateEnum.error,
     bool notify = true,
   }) {
     setState(state: state, error: error, notify: notify);
@@ -107,7 +107,7 @@ class ResourceState<S> extends ChangeNotifier {
   void setLoading({
     bool notify = true,
   }) {
-    _state = ResourceStateEnum.LOADING;
+    _state = ResourceStateEnum.loading;
 
     if (notify) {
       notifyListeners();
@@ -129,7 +129,7 @@ class ResourceState<S> extends ChangeNotifier {
 
   void beginWaiting() {
     _lastState = _state;
-    _state = ResourceStateEnum.WAITING;
+    _state = ResourceStateEnum.waiting;
     notifyListeners();
   }
 
