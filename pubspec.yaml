@@ -1,6 +1,7 @@
 name: resource_state
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
+repository: https://github.com/boginni/resource_state
 
 environment:
   sdk: ^3.4.0
